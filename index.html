@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <link href="style.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="myApp">
+            <div v-if="seen"><h1 text-align="center">Vue Example</h1><hr><h3>kids name</h3></div>
+            <ul>
+                <li v-for="name in names">
+                    {{name.surName}} {{name.firstName}}
+                </li>
+            </ul>
+        </div>
+
+        <div id="myApp2">
+            <p>Favourite Game is ：{{mygame}}</p>
+            <input v-model="mygame">
+            <hr>
+        </div>
+
+        <div id = "myApp3">
+            <p>Your favourite fruit is：{{myFruit}}</p>
+            <button @click="btnClick('strawberry')">strawberry</button>
+            <button @click="btnClick('watermelon')">watermelon</button>
+            <button @click="btnClick('apple')">apple</button>
+        </div>
+
+        <div id="myApp4">
+            <p>Fruit choices</p>
+            <ol>
+                <fruit-item v-for="item in fruits" v-bind:fruit="item"></fruit-item>
+            </ol>
+            <hr>
+        </div>
+
+        <div id="myApp5">
+            <p>Input your sentense:</p>
+            <input v-model ="message">
+            <p>CAPITAL FOR THE STRING</p>
+            <p>{{message | toUpper}}</p>
+            <p>Percentage of of Vue study {{num | toPercentage}}</p>
+        </div>
+
+        <div id = "myApp6">
+            <hr>
+            <p>2020 annual income：{{salary}}</p>
+            <p>2020 payable tax：{{taxIncluded}}</p>
+            <p>2020 net income：{{taxOutSalary}}</p>
+            <p>2020 net income in RMB：{{toRMB}}</p>
+        </div>
+
+        <div id="myApp7">
+            <hr>
+            <p>2020 Expense on fruit：{{price}}</p>
+            <p>2021 Expense on fruit：</p>
+            <input v-model="newPrice">
+            <p>2021 more than 2020：{{priceDifference}}</p>
+            <button @click="btnClick(thisYear, newYear)">Total Expense：</button>
+            <p>{{sumPrice}}</p>
+        </div>
+
+        <div id="myApp8">
+            <hr>
+            <p>2020 expense on medcine：{{expense}}</p>
+            <input v-model="expense">
+            <p>2020 gst in medcine：{{gst}}</p>
+            <p>2020 expense in RMB：{{expRMB}}</p>
+            <button @click="btnClick(3500)">Medcine Expense is 3500</button>
+            <hr>
+        </div>
+        <div id="myApp9">
+            <div v-bind:class="{active:isActive}">Change Color 1</div>
+            <div v-bind:class="{active:isActive}">Change Color2</div>
+            <button @click="btnClick">Change color</button>
+
+        </div>
+        <div id="myApp10">
+            <hr>
+            <div :class="myClass">Changing font and font size</div>
+            <button @click="btnClick">Normal</button>
+        </div>
+
+        <div id="myApp11">
+            <hr>
+            <h1 v-if="result == 0">Not yet</h1>
+            <h1 v-else-if="result < 60">{{result}} - D</h1>
+            <h1 v-else-if="result < 80">{{result}} - B</h1>
+            <h1 v-else>{{result}} - A Enjoy！</h1>
+            <button @click="btnClick">Result</button>
+        </div>
+
+        <div id="myApp12">
+            <hr>
+            <h1 v-show="result">Academic Result</h1>
+            <button @click="btnClick">Show</button>
+        </div>
+
+        <div id="myApp13">
+            <hr>
+            <p v-for="(kids, index) in children">({{index+1}}) {{kids.name}} is {{kids.age}} Years old.</p>
+        </div>
+
+        <div id="myApp14">
+            <hr>
+            <div v-for = "(value, key ) in daughter">{{key}}: {{value}}</div>
+        </div>
+
+        <div id="myApp15">
+            <hr>
+            <input type="text" v-model="message" placeholder="editing">
+            <p> Message is {{message}}</p>
+        </div>
+
+        <div id="myApp16">
+            <hr>
+            <h3>Subject you liked：{{checkedbox}}</h3>
+            <input type = "checkbox" id = "math" value="Math" v-model="checkedbox">
+            <label for = "math">Math</label>
+            <input type = "checkbox" id = "english" value = "English" v-model = "checkedbox">
+            <label for ="english">English</label>
+            <input type = "checkbox" id = "history" value = "History" v-model = "checkedbox">
+            <label for = "history">History</label>
+        </div>
+
+        <div id = "myApp17">
+            <hr>
+            <p>Gender：</p>
+            <input type = "radio" id = "gender" value = "Male" v-model = "pickGender">
+            <label for = "gender">Male</label>
+            <input type = "radio" id = "gender" value = "女性" v-model = "pickGender">
+            <label for = "gender">Female</label>
+            <p>Hobby：</p>
+            <input type = "radio" id = "hobby" value = "玩游戏" v-model = "pickHobby">
+            <label for = "hobby">Play games</label>
+            <input type = "radio" id = "hobby" value = "看电影" v-model = "pickHobby">
+            <label for = "hobby">Watch movies</label>
+            <h3>Result</h3>
+            <p> Gender：{{pickGender}}</p>
+            <p>Hobby：{{pickHobby}}</p>
+        </div>
+
+        <div id = "myApp18">
+            <hr>
+            <p>Favourite subject：</p>
+            <select v-model= "likedSubject" style = "width: 210px;">
+            <option>Chinese</option>
+            <option>Math</option>
+            <option>English</option>
+            <option>History</option>
+            <option>Geography</option>
+            <option>Biology</option>
+        </select>
+        <p>Liked subjects：</p>
+        <select v-model = "likedSubjects" multiple style = "width: 210px; height: 110px;">
+            <option>Chinese</option>
+            <option>Math</option>
+            <option>English</option>
+            <option>History</option>
+            <option>Geography</option>
+            <option>Biology</option>
+        
+        </select>
+
+        <h3>Result</h3>
+        <p>Favourite subject：{{likedSubject}}</p>
+        <p>Liked subjects：{{likedSubjects}}</p>
+        </div>
+
+        <div id = "myApp19">
+            <hr>
+            <today-weather></today-weather>
+        </div>
+
+        <div id = "myApp20">
+            <hr>
+            <h1>Family member birthday</h1>
+            <table border = "1">
+                <tr>
+                    <td>Name</td>
+                    <td>Date</td>
+                </tr>
+                <tr is="my-row1"></tr>
+                <tr is="my-row2"></tr>
+                <tr is="my-row3"></tr>
+                <tr is= "my-row4"></tr>
+            </table>
+        </div>
+
+        <div id = "myApp21">    <!--定义组件，命名时不可用大写字母-->
+            <hr>
+            <div>Today's weather：<todayweather1/></div>
+        </div>
+
+        <div id = "myApp22">
+            <hr>
+            <h1>Emma result</h1>
+            <test-result :score="50"></test-result>
+            <test-result :score= "65"></test-result>
+            <test-result :score="90"></test-result>
+            <test-result :score="100"></test-result>
+        </div>
+        <div id = "myApp23">
+            <hr>
+            <div>Please input name：<input v-model = "myName"></div>
+            <say-hello :pname= "myName" />
+
+        </div>
+        <div id= "myApp24">
+            <hr>
+            <h1>Mystery</h1>
+            <show-member-info name="Kobe" :age="25" :detail="{address:'earth',language:'World'}"></show-member-info>
+
+        </div>
+
+    </body>
+    <script>
+        Vue.component('show-member-info',{
+            props:{
+                name:{
+                    type: String,
+                    required:true
+                },
+                age:{
+                    type:Number,
+                    validator:function(value){
+                        return value >=0 && value <=130;
+                    }
+                },
+                detail:{
+                    type:Object,
+                    default:function(){
+                        return{
+                            address:'US',
+                            language:'English'
+                        }
+                    }
+                }
+
+            },
+            template:'<div>Name：{{this.name}}<br/>'
+            +'Age：{{this.age}}<br/>'
+            +'Address：{{this.detail.address}}<br/>'
+            +'Language：{{this.detail.language}} </div>'
+        })
+        var myApp24 = new Vue({
+            el:"#myApp24"
+        })
+
+        Vue.component('say-hello',{
+            props:['pname'],
+            template:'<div> Hello，<strong>{{pname}}</strong>!</div>'
+        })
+        var myApp23=new Vue({
+            el:"#myApp23",
+            data:{
+                myName:'Koma'
+            }
+        }
+           
+        )
+
+        Vue.component('test-result',{
+            props:['score'],
+            template:'<div><strong>{{score}}分:{{testResult}}</strong></div>',
+            computed:{
+                testResult:function(){
+                    var strResult="";
+                    if (this.score<60)
+                    strResult="D";
+                    else if (this.score<90)
+                    strResult="C";
+                    else if (this.score<=100)
+                    strResult="A";
+                    return strResult; 
+                }
+            }
+        })
+        var myApp22= new Vue({
+            el:"#myApp22",
+            data:{}
+        })
+
+        Vue.component('todayweather1',{
+            template:'<strong>{{todayWeather}}</strong>',
+            data: function(){
+                return {
+                    todayWeather :'Rain with snow'
+                };
+            }
+        })
+        var myApp21 = new Vue({
+            el:'#myApp21',
+            data:{
+
+            }
+        })
+        Vue.component('my-row1',{
+            template:'<tr><td>Emma</td><td>2013/09/02</td></tr>'
+        })
+        Vue.component('my-row2',{
+            template:'<tr><td>George</td><td>2016/02/05</td></tr>'
+        })
+        Vue.component('my-row3',{
+            template:'<tr><td>Willa</td><td>1981/08/19</td></tr>'
+        })
+        Vue.component('my-row4',{
+            template:'<tr><td>Emma</td><td>1982/04/10</td></tr>'
+        })
+        var myApp20 = new Vue({
+            el:"#myApp20",
+            data:{ 
+
+            },
+            methods: {
+            }
+        })
+      Vue.component('today-weather', {
+            template:'<div> What a nice day！</div>'
+        })
+
+        var myApp19 = new Vue({
+            el:"#myApp19"
+        })
+
+        var myApp18 = new Vue({
+            el:"#myApp18",
+            data:{
+                likedSubject:null,
+                likedSubjects:[]
+            }
+        })
+
+        var myApp17 = new Vue({
+            el: "#myApp17",
+            data:{
+                pickGender:" ",
+                pickHobby:""
+
+            }
+        })
+        var myApp16= new Vue({
+            el:"#myApp16",
+            data:{
+                checkedbox:[]
+            }
+        })
+       var myApp15 = new Vue({
+           el:"#myApp15",
+           data:{
+               message:"Another day!"
+           }
+       })
+       var myApp14 = new Vue({
+           el:"#myApp14",
+           data:{
+               daughter:{
+                   name: "Emma",
+                   age:7,
+                   grade: 1,
+                   interesing: "reading + drawing + riding bike"
+               }
+           }
+       })
+       var myApp13 = new Vue({
+           el:"#myApp13",
+           data:{
+               children:[
+                   {name: "Emma", age: 7},
+                   {name:"George", age:4},
+                   {name:"Fifi", age:7},
+                   {name:"Claudia", age:5},
+                   {name:"Amber", age:4}
+                
+
+               ]
+                   
+           }
+       })
+       var myApp12 = new Vue({
+           el:"#myApp12",
+           data:{
+               result:true
+           },
+           methods:{
+               btnClick:function(){
+                   this.result = !this.result;
+               }
+           }
+
+       })
+       var myApp11 = new Vue({
+           el:"#myApp11",
+           data:{
+               result:0
+           },
+           methods:{
+               btnClick:function(){
+                   this.result= Math.round(Math.random()*100);
+               }
+           }
+       })
+       var myApp10 = new Vue({
+           el:"#myApp10",
+           data:{
+               myClass: {
+                   newFont:true,
+                   newSize:true,
+                   newColor:true
+               }
+           },
+           methods:{
+               btnClick: function(){
+                   this.myClass.newFont = false;
+                   this.myClass.newSize = false;
+                   this.myClass.newColor = false;
+               }
+           }
+       })
+       var myApp9 = new Vue({
+           el:"#myApp9",
+           data:{
+               isActive: true
+           },
+           methods:{
+               btnClick: function(){
+                   this.isActive = !this.isActive;
+               }
+           }
+       })
+       var myApp8 = new Vue({
+           el:"#myApp8",
+           data:{
+               expense:500
+           },
+           computed:{
+               gst:{
+                   get:function(){0
+                       return (Math.round((this.expense * 0.1)*100)/100).toFixed(2);
+                   },
+                   set:function(value){
+                       return this.expense = value;
+                   }
+               },
+               expRMB:function(){
+                   return (Math.round((this.expense * 5.2)*100)/100).toFixed(2);
+               }
+               
+           },
+           methods: {
+               btnClick:function(newPrice){
+                   this.expense = newPrice;
+               }
+           }
+       })
+       var myApp7 = new Vue({
+           el:'#myApp7',
+           data:{
+               price:4500,
+               newPrice:4500,
+               priceDifference:0,
+               sumPrice:0
+           },
+           watch:{
+               newPrice:function(newVal, oldVal){
+                   this.priceDifference = this.newPrice - this.price;  
+               }
+           },
+           methods:{
+               btnClick:function(price, newPrice){
+                   return this.sumPrice=Math.round(this.newPrice*1+this.price);
+               }
+           }
+
+       })
+       var myApp6 = new Vue({
+           el:"#myApp6",
+           data: {
+               salary: '68000'
+           },
+           computed: {
+               taxIncluded: function(){
+                   return this.salary * 0.15;
+               },
+               taxOutSalary: function(){
+                   return this.salary* 0.85;
+               },
+               toRMB: function(){
+                   return this.salary*0.85*4.9;
+               }
+           }
+       })
+       var myApp5 = new Vue({
+           el:"#myApp5",
+           data: {
+               message: 'hello Vue.js world!',
+               num: 0.3
+           },
+           filters:{
+               toUpper:function(value){
+                   return value.toUpperCase();
+               },
+               toPercentage: function(value){
+                   return value * 100 + '%';
+               }
+           }
+
+       })
+
+        Vue.component('fruit-item',{
+            props:['fruit'],
+            template:'<li>{{fruit.name}}</li>'
+        })
+        var myApp4 = new Vue({
+            el:"#myApp4",
+            data:{
+                fruits:[
+                    {name:'apple'},
+                    {name:'strawberry'},
+                    {name:'watermelon'},
+                    {name:'banana'}
+                ]
+
+            }
+        })
+        var firstApp = new Vue({
+            el: "#myApp",
+            data: {
+               seen:true,
+               names:[
+                   {surName:'Qin',
+                   firstName:'Emma' },
+                   {surName:'Xu',
+                   firstName: 'George'},
+               ]
+            }
+        })
+        var myApp2 = new Vue({
+            el:"#myApp2",
+            data:{
+                mygame:'Graffulo'
+            }
+        })
+        var myApp3 = new Vue({
+            el:"#myApp3",
+            data: {
+                myFruit:'Banana'
+            },
+            methods: {
+                btnClick: function (pName){
+                    this.myFruit= pName
+                }
+            }
+        })
+    </script>
+</html>
+
+

@@ -1,0 +1,20 @@
+body {
+font-size: 15px;
+}
+
+.active {
+    color:red;
+}
+
+.newFont{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+
+.newSize{
+    font-size: 25px;
+}
+
+.newColor{
+    color:rgb(106, 248, 11);
+}
